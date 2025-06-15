@@ -10,7 +10,9 @@
   (evil-mc-mode 1)
   (global-evil-mc-mode 1))
 
-(use-package raku-mode :ensure t)
+(use-package raku-mode :ensure t :init
+  (define-auto-insert '("\\.rakumod\\'" . "Raku module skeleton") 'raku-module-skeleton)
+  (define-auto-insert '("\\.raku\\'" . "Raku script skeleton") 'raku-script-skeleton))
 (use-package general :ensure t)
 (use-package neotree :ensure t)
 (use-package ag :ensure t)
