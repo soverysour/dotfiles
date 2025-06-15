@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cp ~/.emacs.d/init.el ./init.el
+cp ./init.el ~/.emacs.d/init.el

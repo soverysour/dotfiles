@@ -10,6 +10,9 @@
   (evil-mc-mode 1)
   (global-evil-mc-mode 1))
 
+(use-package flycheck :ensure t :defer t :hook (prog-mode . flycheck-mode))
+(use-package flycheck-raku :ensure t)
+
 (use-package raku-mode :ensure t :init
   (define-auto-insert '("\\.rakumod\\'" . "Raku module skeleton") 'raku-module-skeleton)
   (define-auto-insert '("\\.raku\\'" . "Raku script skeleton") 'raku-script-skeleton))
