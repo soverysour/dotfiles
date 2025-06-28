@@ -1,4 +1,5 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/"))
 
 (use-package markdown-mode
   :ensure t
@@ -13,6 +14,7 @@
 (use-package flycheck :ensure t :config
   (add-hook 'after-init-hook #'global-flycheck-mode))
 (use-package flycheck-raku :ensure t)
+(use-package nord-theme :ensure t :init (load-theme 'nord t))
 
 (use-package raku-mode :ensure t :init
   (define-auto-insert '("\\.rakumod\\'" . "Raku module skeleton") 'raku-module-skeleton)
@@ -40,7 +42,6 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 
-(load-theme 'zenburn t)
 (global-display-line-numbers-mode)
 (set-frame-font "Source Code Pro 16" nil t)
 
