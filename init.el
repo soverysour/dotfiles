@@ -32,7 +32,8 @@
   (setq projectile-project-search-path '("~/Documents/repositories"))
   :config
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-  (projectile-mode +1))
+  (projectile-mode +1)
+  (customize-set-value 'projectile-completion-system 'ido))
 
 (general-define-key
  "M-§" 'neotree-toggle
