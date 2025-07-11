@@ -34,7 +34,7 @@
   (define-auto-insert '("\\.raku\\'" . "Raku script skeleton") 'raku-script-skeleton))
 (use-package general :ensure t)
 (use-package neotree :ensure t)
-(use-package slime :ensure t)
+(use-package sly :ensure t)
 (use-package ag :ensure t)
 (use-package vertico :ensure t :init (vertico-mode +1))
 (use-package which-key :ensure t :config (which-key-mode +1))
