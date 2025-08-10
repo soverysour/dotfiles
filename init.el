@@ -24,15 +24,16 @@
   (evil-mc-mode 1)
   (global-evil-mc-mode 1))
 
-(use-package flycheck :ensure t :config
-  (add-hook 'after-init-hook #'global-flycheck-mode))
+(use-package company :ensure t)
+(use-package lsp-mode :ensure t)
+(use-package flycheck :ensure t)
 (use-package nord-theme :ensure t :init (load-theme 'nord t))
 
 (use-package general :ensure t)
 (use-package neotree :ensure t)
 (use-package sly :ensure t)
 (use-package flycheck-rust :ensure t)
-(use-package rust-mode :ensure t :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+(use-package rust-mode :ensure t)
 (use-package ag :ensure t)
 (use-package vertico :ensure t :init (vertico-mode +1))
 (use-package which-key :ensure t :config (which-key-mode +1))
@@ -45,6 +46,11 @@
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (projectile-mode +1)
   (customize-set-value 'projectile-completion-system 'ido))
+
+(add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
+(add-hook 'rust-mode-hook #'lsp-deferred)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'after-init-hook #'global-company-mode)
 
 (general-define-key
  "M-§" 'neotree-toggle
