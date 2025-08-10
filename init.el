@@ -31,7 +31,8 @@
 (use-package general :ensure t)
 (use-package neotree :ensure t)
 (use-package sly :ensure t)
-(use-package rust-mode :ensure t)
+(use-package flycheck-rust :ensure t)
+(use-package rust-mode :ensure t :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 (use-package ag :ensure t)
 (use-package vertico :ensure t :init (vertico-mode +1))
 (use-package which-key :ensure t :config (which-key-mode +1))
@@ -68,6 +69,7 @@
 (setq scroll-step 1)
 (setq scroll-conservatively 10000)
 (setq electric-indent-mode nil)
+(setq rust-format-on-save t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
