@@ -1,6 +1,9 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/"))
 
+(setq lsp-clients-lua-language-server-bin "/opt/homebrew/Cellar/lua-language-server/3.15.0/libexec/bin/lua-language-server")
+(setq lsp-clients-lua-language-server-main-location "/opt/homebrew/Cellar/lua-language-server/3.15.0/libexec/bin/main.lua")
+
 (use-package hl-todo
   :ensure t
   :hook (prog-mode . hl-todo-mode)
@@ -24,6 +27,7 @@
   (evil-mc-mode 1)
   (global-evil-mc-mode 1))
 
+(use-package lua-mode :ensure t)
 (use-package company :ensure t)
 (use-package lsp-mode :ensure t)
 (use-package flycheck :ensure t)
@@ -49,6 +53,7 @@
 
 (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
 (add-hook 'rust-mode-hook #'lsp-deferred)
+(add-hook 'lua-mode-hook #'lsp-deferred)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (add-hook 'after-init-hook #'global-company-mode)
 
