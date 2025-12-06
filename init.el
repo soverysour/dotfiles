@@ -27,8 +27,10 @@
   (evil-mc-mode 1)
   (global-evil-mc-mode 1))
 
+(use-package d-mode :ensure t)
 (use-package lua-mode :ensure t)
 (use-package company :ensure t)
+(use-package company-dcd :ensure t)
 (use-package lsp-mode :ensure t)
 (use-package flycheck :ensure t)
 (use-package nord-theme :ensure t :init (load-theme 'nord t))
@@ -51,6 +53,7 @@
   (projectile-mode +1)
   (customize-set-value 'projectile-completion-system 'ido))
 
+(add-hook 'd-mode-hook 'company-dcd-mode)
 (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
 (add-hook 'rust-mode-hook #'lsp-deferred)
 (add-hook 'lua-mode-hook #'lsp-deferred)
