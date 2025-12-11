@@ -27,14 +27,16 @@
   (evil-mc-mode 1)
   (global-evil-mc-mode 1))
 
+(use-package ivy :ensure t)
+(use-package lsp-ivy :ensure t)
 (use-package d-mode :ensure t)
+(use-package python-mode :ensure t)
 (use-package lua-mode :ensure t)
 (use-package company :ensure t)
 (use-package company-dcd :ensure t)
 (use-package lsp-mode :ensure t)
 (use-package flycheck :ensure t)
 (use-package nord-theme :ensure t :init (load-theme 'nord t))
-
 (use-package general :ensure t)
 (use-package neotree :ensure t)
 (use-package sly :ensure t)
@@ -57,6 +59,8 @@
 (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
 (add-hook 'rust-mode-hook #'lsp-deferred)
 (add-hook 'lua-mode-hook #'lsp-deferred)
+(add-hook 'c-mode-hook #'lsp-deferred)
+(add-hook 'c++-mode-hook #'lsp-deferred)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (add-hook 'after-init-hook #'global-company-mode)
 
