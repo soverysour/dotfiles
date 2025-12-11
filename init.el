@@ -1,5 +1,10 @@
+(require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/"))
+
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
 
 (setq lsp-clients-lua-language-server-bin "/opt/homebrew/Cellar/lua-language-server/3.15.0/libexec/bin/lua-language-server")
 (setq lsp-clients-lua-language-server-main-location "/opt/homebrew/Cellar/lua-language-server/3.15.0/libexec/bin/main.lua")
@@ -30,7 +35,6 @@
 (use-package ivy :ensure t)
 (use-package lsp-ivy :ensure t)
 (use-package d-mode :ensure t)
-(use-package python-mode :ensure t)
 (use-package lua-mode :ensure t)
 (use-package company :ensure t)
 (use-package company-dcd :ensure t)
@@ -49,11 +53,12 @@
 (use-package projectile
   :ensure t
   :init
-  (setq projectile-project-search-path '("~/Documents/repositories"))
+  (setq projectile-project-search-path '(("~/Documents/repositories" . 3)))
   :config
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-  (projectile-mode +1)
-  (customize-set-value 'projectile-completion-system 'ido))
+  (projectile-global-mode +1)
+  (customize-set-value 'projectile-completion-system 'ido)
+  (projectile-discover-projects-in-search-path))
 
 (add-hook 'd-mode-hook 'company-dcd-mode)
 (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
@@ -68,10 +73,6 @@
  "M-§" 'neotree-toggle
  "M-±" 'neotree-change-root)
 
-(menu-bar-mode -1)
-(toggle-scroll-bar -1)
-(tool-bar-mode -1)
-
 (global-display-line-numbers-mode)
 (set-frame-font "Source Code Pro 16" nil t)
 
@@ -80,7 +81,7 @@
 (setq inferior-lisp-program "sbcl")
 
 (setq-default indent-tabs-mode nil)
-(desktop-save-mode 1)
+(desktop-save-mode 0)
 
 (setq make-backup-files nil)
 
