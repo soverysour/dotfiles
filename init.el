@@ -32,6 +32,11 @@
   (evil-mc-mode 1)
   (global-evil-mc-mode 1))
 
+(use-package treemacs :ensure t
+  :bind (:map global-map ("M-§" . treemacs)))
+  
+(use-package treemacs-evil :ensure t :after (treemacs evil))
+(use-package treemacs-projectile :ensure t :after (treemacs projectile))
 (use-package ivy :ensure t)
 (use-package lsp-ivy :ensure t)
 (use-package d-mode :ensure t)
@@ -42,7 +47,6 @@
 (use-package flycheck :ensure t)
 (use-package nord-theme :ensure t :init (load-theme 'nord t))
 (use-package general :ensure t)
-(use-package neotree :ensure t)
 (use-package sly :ensure t)
 (use-package flycheck-rust :ensure t)
 (use-package rust-mode :ensure t)
@@ -63,30 +67,29 @@
 (use-package dap-mode :ensure t
   :after lsp-mode
   :config
-  (dap-auto-configure-mode)
   (dap-mode 1)
   (dap-ui-mode 1)
+  (dap-tooltip-mode 1)
   (dap-ui-controls-mode 1)
+  (require 'dap-lldb)
+  (require 'dap-gdb)
+  (setq dap-lldb-debug-program (list (string-trim (shell-command-to-string "xcrun -f lldb-dap"))))
   :bind (("C-c d b" . dap-breakpoint-toggle)
          ("C-c d r" . dap-debug)
-         ("C-c d s" . dap-continue)))
-
-
-(require 'dap-lldb)
-(setq dap-lldb-debug-program (shell-command-to-string "xcrun -f lldb-dap"))
+         ("C-c d s" . dap-continue)
+         ("C-c d m" . dap-debug-edit-template)))
 
 (add-hook 'd-mode-hook 'company-dcd-mode)
 (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
 (add-hook 'rust-mode-hook #'lsp-deferred)
 (add-hook 'lua-mode-hook #'lsp-deferred)
 (add-hook 'c-mode-hook #'lsp-deferred)
+(add-hook 'c-mode-hook 'dap-mode)
 (add-hook 'c++-mode-hook #'lsp-deferred)
+(add-hook 'c++-mode-hook 'dap-mode)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (add-hook 'after-init-hook #'global-company-mode)
-
-(general-define-key
- "M-§" 'neotree-toggle
- "M-±" 'neotree-change-root)
+(add-hook 'dap-mode 'dap-lldp)
 
 (global-display-line-numbers-mode)
 (set-frame-font "Source Code Pro 16" nil t)
