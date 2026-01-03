@@ -72,7 +72,6 @@
   (dap-tooltip-mode 1)
   (dap-ui-controls-mode 1)
   (require 'dap-lldb)
-  (require 'dap-gdb)
   (setq dap-lldb-debug-program (list (string-trim (shell-command-to-string "xcrun -f lldb-dap"))))
   :bind (("C-c d b" . dap-breakpoint-toggle)
          ("C-c d r" . dap-debug)
