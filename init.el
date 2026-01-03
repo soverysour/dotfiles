@@ -49,9 +49,9 @@
 (use-package ag :ensure t)
 (use-package vertico :ensure t :init (vertico-mode +1))
 (use-package which-key :ensure t :config (which-key-mode +1))
+(use-package cmake-mode :ensure t)
 
-(use-package projectile
-  :ensure t
+(use-package projectile :ensure t
   :init
   (setq projectile-project-search-path '(("~/Documents/repositories" . 3)))
   :config
@@ -59,6 +59,21 @@
   (projectile-global-mode +1)
   (customize-set-value 'projectile-completion-system 'ido)
   (projectile-discover-projects-in-search-path))
+
+(use-package dap-mode :ensure t
+  :after lsp-mode
+  :config
+  (dap-auto-configure-mode)
+  (dap-mode 1)
+  (dap-ui-mode 1)
+  (dap-ui-controls-mode 1)
+  :bind (("C-c d b" . dap-breakpoint-toggle)
+         ("C-c d r" . dap-debug)
+         ("C-c d s" . dap-continue)))
+
+
+(require 'dap-lldb)
+(setq dap-lldb-debug-program (shell-command-to-string "xcrun -f lldb-dap"))
 
 (add-hook 'd-mode-hook 'company-dcd-mode)
 (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
