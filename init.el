@@ -67,11 +67,11 @@
 (use-package dap-mode :ensure t
   :after lsp-mode
   :config
+  (require 'dap-lldb)
   (dap-mode 1)
   (dap-ui-mode 1)
   (dap-tooltip-mode 1)
   (dap-ui-controls-mode 1)
-  (require 'dap-lldb)
   (setq dap-lldb-debug-program (list (string-trim (shell-command-to-string "xcrun -f lldb-dap"))))
   :bind (("C-c d b" . dap-breakpoint-toggle)
          ("C-c d r" . dap-debug)
@@ -83,12 +83,10 @@
 (add-hook 'rust-mode-hook #'lsp-deferred)
 (add-hook 'lua-mode-hook #'lsp-deferred)
 (add-hook 'c-mode-hook #'lsp-deferred)
-(add-hook 'c-mode-hook 'dap-mode)
 (add-hook 'c++-mode-hook #'lsp-deferred)
-(add-hook 'c++-mode-hook 'dap-mode)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (add-hook 'after-init-hook #'global-company-mode)
-(add-hook 'dap-mode 'dap-lldp)
+(add-hook 'lsp-mode 'dap-mode)
 
 (global-display-line-numbers-mode)
 (set-frame-font "Source Code Pro 16" nil t)
