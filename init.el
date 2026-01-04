@@ -8,6 +8,7 @@
 
 (setq lsp-clients-lua-language-server-bin "/opt/homebrew/Cellar/lua-language-server/3.15.0/libexec/bin/lua-language-server")
 (setq lsp-clients-lua-language-server-main-location "/opt/homebrew/Cellar/lua-language-server/3.15.0/libexec/bin/main.lua")
+(setq lldb-dap-bin (string-trim (shell-command-to-string "xcrun -f lldb-dap")))
 
 (use-package hl-todo
   :ensure t
@@ -72,7 +73,7 @@
   (dap-ui-mode 1)
   (dap-tooltip-mode 1)
   (dap-ui-controls-mode 1)
-  (setq dap-lldb-debug-program (list (string-trim (shell-command-to-string "xcrun -f lldb-dap"))))
+  (setq dap-lldb-debug-program (list lldb-dap-bin))
   :bind (("C-c d b" . dap-breakpoint-toggle)
          ("C-c d r" . dap-debug)
          ("C-c d s" . dap-continue)
@@ -86,7 +87,9 @@
 (add-hook 'c++-mode-hook #'lsp-deferred)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (add-hook 'after-init-hook #'global-company-mode)
-(add-hook 'lsp-mode 'dap-mode)
+(add-hook 'c-mode-hook 'dap-mode)
+(add-hook 'c++-mode-hook 'dap-mode)
+(add-hook 'after-save-hook (lambda () (when (eq major-mode 'c++-mode) (lsp-format-buffer))))
 
 (global-display-line-numbers-mode)
 (set-frame-font "Source Code Pro 16" nil t)
