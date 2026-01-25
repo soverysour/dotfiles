@@ -65,6 +65,9 @@
   (customize-set-value 'projectile-completion-system 'ido)
   (projectile-discover-projects-in-search-path))
 
+(use-package rg :ensure t)
+(use-package projectile-ripgrep :ensure t :after (rg projectile))
+
 (use-package dap-mode :ensure t
   :after lsp-mode
   :config
@@ -98,6 +101,7 @@
 (setq inhibit-startup-screen t)
 (setq inferior-lisp-program "sbcl")
 
+(setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
 (desktop-save-mode 0)
 
@@ -107,6 +111,8 @@
 (setq scroll-conservatively 10000)
 (setq electric-indent-mode nil)
 (setq rust-format-on-save t)
+
+(load "~/.emacs.d/own-extensions/fluenc-mode.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
