@@ -6,8 +6,6 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 
-(setq lsp-clients-lua-language-server-bin "/opt/homebrew/Cellar/lua-language-server/3.15.0/libexec/bin/lua-language-server")
-(setq lsp-clients-lua-language-server-main-location "/opt/homebrew/Cellar/lua-language-server/3.15.0/libexec/bin/main.lua")
 (setq lldb-dap-bin (string-trim (shell-command-to-string "xcrun -f lldb-dap")))
 
 (use-package hl-todo
@@ -34,27 +32,30 @@
   (global-evil-mc-mode 1))
 
 (use-package treemacs :ensure t
-  :bind (:map global-map ("M-§" . treemacs)))
+  :bind (:map global-map ("M-§" . treemacs))
+  :config (treemacs-project-follow-mode))
   
 (use-package treemacs-evil :ensure t :after (treemacs evil))
 (use-package treemacs-projectile :ensure t :after (treemacs projectile))
 (use-package ivy :ensure t)
 (use-package lsp-ivy :ensure t)
-(use-package d-mode :ensure t)
-(use-package lua-mode :ensure t)
 (use-package company :ensure t)
 (use-package company-dcd :ensure t)
 (use-package lsp-mode :ensure t)
 (use-package flycheck :ensure t)
 (use-package nord-theme :ensure t :init (load-theme 'nord t))
 (use-package general :ensure t)
-(use-package sly :ensure t)
+(use-package sly :ensure t
+  :bind (("C-c h" . sly-hyperspec-lookup)
+         ("C-c e l" . sly-eval-buffer)
+         ("C-c e r" . sly-eval-region)
+         ("C-c l r" . sly-restart-inferior-lisp)))
 (use-package flycheck-rust :ensure t)
 (use-package rust-mode :ensure t)
-(use-package ag :ensure t)
 (use-package vertico :ensure t :init (vertico-mode +1))
 (use-package which-key :ensure t :config (which-key-mode +1))
 (use-package cmake-mode :ensure t)
+(use-package magit :ensure t)
 
 (use-package projectile :ensure t
   :init
@@ -82,10 +83,8 @@
          ("C-c d s" . dap-continue)
          ("C-c d m" . dap-debug-edit-template)))
 
-(add-hook 'd-mode-hook 'company-dcd-mode)
 (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
 (add-hook 'rust-mode-hook #'lsp-deferred)
-(add-hook 'lua-mode-hook #'lsp-deferred)
 (add-hook 'c-mode-hook #'lsp-deferred)
 (add-hook 'c++-mode-hook #'lsp-deferred)
 (add-hook 'after-init-hook #'global-flycheck-mode)
