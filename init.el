@@ -69,6 +69,9 @@
 (use-package rg :ensure t)
 (use-package projectile-ripgrep :ensure t :after (rg projectile))
 
+(use-package geiser :ensure t)
+(use-package geiser-chicken :ensure t :after geiser)
+
 (use-package dap-mode :ensure t
   :after lsp-mode
   :config
