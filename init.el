@@ -35,6 +35,7 @@
   :bind (:map global-map ("M-§" . treemacs))
   :config (treemacs-project-follow-mode))
   
+(use-package bqn-mode :ensure t)
 (use-package treemacs-evil :ensure t :after (treemacs evil))
 (use-package treemacs-projectile :ensure t :after (treemacs projectile))
 (use-package ivy :ensure t)
@@ -56,6 +57,7 @@
 (use-package which-key :ensure t :config (which-key-mode +1))
 (use-package cmake-mode :ensure t)
 (use-package magit :ensure t)
+(use-package fuel :ensure t)
 
 (use-package projectile :ensure t
   :init
@@ -98,6 +100,12 @@
 
 (global-display-line-numbers-mode)
 (set-frame-font "Source Code Pro 16" nil t)
+
+(defun bqn-mode-font-hook ()
+  (interactive)
+  (setq buffer-face-mode-face '(:family "BQN386 Unicode" :height 16))
+  (buffer-face-mode))
+(add-hook 'bqn-mode 'bqn-mode-font-hook)
 
 (setq display-line-numbers-type 'relative)
 (setq inhibit-startup-screen t)
